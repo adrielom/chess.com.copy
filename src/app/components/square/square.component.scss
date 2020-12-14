@@ -1,0 +1,13 @@
+$side: 10.2vh;
+$white: white;
+$black: black;
+
+div {
+  position: relative;
+  width: $side;
+  height: $side;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

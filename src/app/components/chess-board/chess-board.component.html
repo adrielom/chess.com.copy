@@ -1,0 +1,7 @@
+<div id="chessBoard">
+  <div class="column" *ngFor="let i of [0,1,2,3,4,5,6,7]">
+    <div class="row" *ngFor="let j of [0,1,2,3,4,5,6,7]">
+      <app-square value="{{i}},{{j}}"></app-square>
+    </div>
+  </div>
+</div>
