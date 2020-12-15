@@ -19,7 +19,6 @@ export class PawnComponent implements OnInit {
   ngOnInit(): void {
     this.style = {
       'background-image': `url(${this.piece.imageURL})`,
-      'fill': this.piece.color === Color.white ? 'white' : 'black'
     }
   }
 }

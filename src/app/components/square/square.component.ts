@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Pieces, Position } from 'src/app/models/Pieces';
 import { ChessBoardComponent } from '../chess-board/chess-board.component';
 import { BishopComponent } from '../piecesComponents/bishop-component/bishop-component.component';
@@ -8,11 +8,12 @@ import { BishopComponent } from '../piecesComponents/bishop-component/bishop-com
   templateUrl: './square.component.html',
   styleUrls: ['./square.component.scss']
 })
-export class SquareComponent implements OnInit {
+export class SquareComponent implements OnInit, OnChanges {
 
   @Input()
   value: string;
 
+  @Input()
   piece: Pieces
   isPopulated: boolean = false;
   brokenValue: string[];
@@ -22,6 +23,10 @@ export class SquareComponent implements OnInit {
   constructor() {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
   ngOnInit(): void {
     this.brokenValue = this.value?.split(',');
     this.myStyle = {
@@ -29,23 +34,6 @@ export class SquareComponent implements OnInit {
       'border-radius': this.roundCorners()
     }
     this.position = new Position(Number.parseInt(this.brokenValue[0]), Number.parseInt(this.brokenValue[1]));
-    this.setPieceOnSquare();
-  }
-
-
-  setPieceOnSquare(): void {
-    let piece = ChessBoardComponent.pieces.find(p => {
-      if (p.startingPosition.x == this.position.x && p.startingPosition.y == this.position.y) {
-        return p;
-      }
-    })
-    // console.log(this.position)
-    if (piece !== undefined) {
-      this.isPopulated = true;
-      this.piece = piece;
-      this.value = piece.name;
-    }
-
   }
 
 

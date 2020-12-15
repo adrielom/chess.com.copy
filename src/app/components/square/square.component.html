@@ -1,5 +1,6 @@
 <div *ngIf="piece?.name; else nothing">
   <div [ngStyle]="myStyle" [ngSwitch]="piece.name">
+    {{value}}
     <app-bishop-component [piece]="piece" *ngSwitchCase="'Bishop'"></app-bishop-component>
     <app-king-component [piece]="piece" *ngSwitchCase="'King'"></app-king-component>
     <app-rook [piece]="piece" *ngSwitchCase="'Rook'"></app-rook>
@@ -10,5 +11,6 @@
 </div>
 <ng-template #nothing>
   <div [ngStyle]="myStyle">
+    {{value}}
   </div>
 </ng-template>

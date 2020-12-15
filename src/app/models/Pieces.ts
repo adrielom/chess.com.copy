@@ -8,6 +8,7 @@ export abstract class Pieces {
   position: Position;
 
   abstract imageURL: string;
+  abstract availableSquares: Position[]
 
   constructor(public name: string, public startingPosition: Position, public color: Color) {
     this.position = startingPosition;
@@ -18,6 +19,8 @@ export abstract class Pieces {
     if (destination.y > 7 || destination.y < 0) return false;
     else return true;
   }
+
+  abstract setConstraints(): void;
 
   abstract moveTo(destination: Position): void;
 }

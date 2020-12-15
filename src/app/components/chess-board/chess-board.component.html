@@ -1,7 +1,8 @@
 <div id="chessBoard">
-  <div class="column" *ngFor="let i of [0,1,2,3,4,5,6,7]">
-    <div class="row" *ngFor="let j of [0,1,2,3,4,5,6,7]">
-      <app-square value="{{i}},{{j}}"></app-square>
+  <div class="column" *ngFor="let i of [8,7,6,5,4,3,2,1]">
+    <div class="row" *ngFor="let j of [1,2,3,4,5,6,7,8]">
+      <app-square [piece]="getPieceByXY(j, i)" value="{{j}},{{i}}"></app-square>
     </div>
   </div>
+  <button (click)="simulate()">SIMULATION</button>
 </div>

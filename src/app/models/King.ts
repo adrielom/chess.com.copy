@@ -1,6 +1,10 @@
 import { Position, Pieces, Color } from '../models/Pieces'
 
 export class King extends Pieces {
+  availableSquares: Position[];
+  setConstraints(): void {
+    throw new Error('Method not implemented.');
+  }
   imageURL: string;
 
   constructor(name: string, startingPosition: Position, color: Color) {
