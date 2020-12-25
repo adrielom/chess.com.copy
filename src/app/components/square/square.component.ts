@@ -36,6 +36,11 @@ export class SquareComponent implements OnInit, OnChanges {
     this.position = new Position(Number.parseInt(this.brokenValue[0]), Number.parseInt(this.brokenValue[1]));
   }
 
+  setDestination(): void {
+    let active = ChessBoardComponent.instance.activePlayer;
+    if (active.firstPosition.isSet())
+      active.setPosition(this.position)
+  }
 
   setColor(): string {
     let columnEven = Number.parseInt(this.brokenValue[1]) % 2 === 0;

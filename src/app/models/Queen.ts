@@ -13,9 +13,11 @@ export class Queen extends Pieces {
     this.imageURL = color === Color.white ? 'assets/images/QueenWhite.svg' : 'assets/images/QueenBlack.svg';
   }
 
-
   moveTo(destination: Position): void {
     throw new Error("Method not implemented.");
+  }
+  canBeMoved(): boolean {
+    throw new Error('Method not implemented.');
   }
 
 }

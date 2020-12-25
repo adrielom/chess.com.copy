@@ -1,16 +1,16 @@
 <div *ngIf="piece?.name; else nothing">
   <div [ngStyle]="myStyle" [ngSwitch]="piece.name">
     {{value}}
-    <app-bishop-component [piece]="piece" *ngSwitchCase="'Bishop'"></app-bishop-component>
-    <app-king-component [piece]="piece" *ngSwitchCase="'King'"></app-king-component>
-    <app-rook [piece]="piece" *ngSwitchCase="'Rook'"></app-rook>
-    <app-knight [piece]="piece" *ngSwitchCase="'Knight'"></app-knight>
-    <app-queen [piece]="piece" *ngSwitchCase="'Queen'"></app-queen>
-    <app-pawn [piece]="piece" *ngSwitchCase="'Pawn'"></app-pawn>
+    <app-bishop-component [piece]="piece" [value]="value" *ngSwitchCase="'Bishop'"></app-bishop-component>
+    <app-king-component [piece]="piece" [value]="value" *ngSwitchCase="'King'"></app-king-component>
+    <app-rook [piece]="piece" [value]="value" *ngSwitchCase="'Rook'"></app-rook>
+    <app-knight [piece]="piece" [value]="value" *ngSwitchCase="'Knight'"></app-knight>
+    <app-queen [piece]="piece" [value]="value" *ngSwitchCase="'Queen'"></app-queen>
+    <app-pawn [piece]="piece" [value]="value" *ngSwitchCase="'Pawn'"></app-pawn>
   </div>
 </div>
 <ng-template #nothing>
-  <div [ngStyle]="myStyle">
+  <div [ngStyle]="myStyle" (click)="setDestination()">
     {{value}}
   </div>
 </ng-template>

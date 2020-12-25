@@ -1,5 +1,10 @@
 export class Position {
   constructor(public x: number, public y: number) { }
+
+  isSet(): boolean {
+    if (this.x === -1 && this.y === -1) return false;
+    return true;
+  }
 }
 
 export enum Color { white, black }
@@ -20,7 +25,11 @@ export abstract class Pieces {
     else return true;
   }
 
+  get Piece(): Pieces {
+    return this;
+  }
 
+  abstract canBeMoved(): boolean;
 
   abstract setConstraints(): void;
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Pawn } from 'src/app/models/Pawn';
-import { Color } from 'src/app/models/Pieces';
+import { Color, Position } from 'src/app/models/Pieces';
+import { ChessBoardComponent } from '../../chess-board/chess-board.component';
 
 @Component({
   selector: 'app-pawn',
@@ -11,12 +12,13 @@ export class PawnComponent implements OnInit {
 
   @Input()
   piece: Pawn
-  hold: boolean
+  @Input()
+  value: string;
+
   style: object
   interval: any
 
   constructor() { }
-
 
   ngOnInit(): void {
     this.style = {
@@ -24,31 +26,14 @@ export class PawnComponent implements OnInit {
     }
   }
 
-  mouseUp() {
-    console.log(`yo`)
-    this.style['left'] = '26%';
-    this.style['top'] = '15%';
-    this.hold = false;
-    this.interval = undefined
-  }
-
   mouseDown(event: MouseEvent) {
-
-    this.hold = true;
-    let x = event.offsetX
-    let y = event.offsetY
-
-    this.style['left'] = x + 'px';
-    this.style['top'] = y + 'px';
-
-    if (this.hold) {
-      this.interval = setInterval(() => this.mouseDownHold(x, y), 200);
+    if (!this.piece.canBeMoved()) {
+      console.log('cannot be moved')
+      return;
     }
+    let attributes = this.value.split(',');
+    ChessBoardComponent.instance.SelectedPiece = this.piece;
+    ChessBoardComponent.instance.activePlayer.setPosition(new Position(Number.parseInt(attributes[0]), Number.parseInt(attributes[1])));
   }
 
-  mouseDownHold(x: number, y: number) {
-    console.log('hey')
-    this.style['left'] = x + 'px';
-    this.style['top'] = y + 'px';
-  }
 }

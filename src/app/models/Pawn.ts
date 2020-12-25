@@ -2,14 +2,24 @@ import { ChessBoardComponent } from '../components/chess-board/chess-board.compo
 import { Position, Pieces, Color } from '../models/Pieces'
 
 export class Pawn extends Pieces {
-  availableSquares: Position[] = [];
   imageURL: string;
   firstMove: boolean = true;
+  availableSquares: Position[] = [];
 
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
     this.setConstraints();
     this.imageURL = color === Color.white ? 'assets/images/PawnWhite.svg' : 'assets/images/PawnBlack.svg';
+  }
+
+  canBeMoved(): boolean {
+    if (ChessBoardComponent.instance.activePlayer.color === Color.white) {
+      if (ChessBoardComponent.instance.player1.listOfPieces.find(p => p.Piece === this)) return true
+    }
+    else if (ChessBoardComponent.instance.activePlayer.color === Color.black) {
+      if (ChessBoardComponent.instance.player2.listOfPieces.find(p => p.Piece === this)) return true
+    }
+    else return false
   }
 
   canCapture(): void {

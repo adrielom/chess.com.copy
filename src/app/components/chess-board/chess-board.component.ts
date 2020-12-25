@@ -1,7 +1,8 @@
-import { Component, OnChanges, OnInit, SimpleChanges, } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, } from '@angular/core';
 import { Position, Pieces, Color } from '../../models/Pieces';
 import { Bishop, King, Knight, Pawn, Queen, Rook } from '../../models/PiecesList'
 import { Command } from '../../models/Command'
+import { Player } from '../../models/Player'
 @Component({
   selector: 'app-chess-board',
   templateUrl: './chess-board.component.html',
@@ -12,15 +13,52 @@ export class ChessBoardComponent implements OnInit {
   constructor() {
     if (ChessBoardComponent.instance === undefined)
       ChessBoardComponent.instance = this;
+
+    this.player1 = new Player('Walter White', Color.white)
+    this.player2 = new Player('Jack Black', Color.black)
+    this.activePlayer = this.player1
   }
 
   public static instance: ChessBoardComponent;
-
+  selectedPiece: Pieces;
   public pieces: Pieces[] = [];
+  public player1: Player
+  public player2: Player
+  public activePlayer: Player;
+
+  public get SelectedPiece() {
+    return this.selectedPiece;
+  }
+
+  public set SelectedPiece(piece: Pieces) {
+    console.log(piece)
+    this.selectedPiece = piece;
+  }
 
   ngOnInit(): void {
     this.populateChessBoard();
+    this.populatePlayersPieces();
     // this.gameCycle();
+  }
+
+  SetActivePlayer(): void {
+    this.player1.cleanUp();
+    this.player2.cleanUp();
+    console.log(`the player before is ${this.activePlayer.name}`)
+    if (this.activePlayer === this.player1) {
+      this.activePlayer = this.player2;
+    }
+    else if (this.activePlayer === this.player2) {
+      this.activePlayer = this.player1;
+    }
+    console.log(`the player after is ${this.activePlayer.name}`)
+  }
+
+  populatePlayersPieces(): void {
+    this.pieces.forEach(p => {
+      if (p.color === Color.white) this.player1.listOfPieces.push(p);
+      else if (p.color === Color.black) this.player2.listOfPieces.push(p);
+    })
   }
 
   gameCycle(): void {

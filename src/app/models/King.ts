@@ -14,9 +14,11 @@ export class King extends Pieces {
 
   }
 
-
   moveTo(destination: Position): void {
     throw new Error("Method not implemented.");
+  }
+  canBeMoved(): boolean {
+    throw new Error('Method not implemented.');
   }
 
 }

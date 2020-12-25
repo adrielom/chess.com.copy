@@ -18,4 +18,8 @@ export class Bishop extends Pieces {
     throw new Error("Method not implemented.");
   }
 
+  canBeMoved(): boolean {
+    throw new Error('Method not implemented.');
+  }
+
 }

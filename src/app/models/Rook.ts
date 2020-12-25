@@ -19,4 +19,8 @@ export class Rook extends Pieces {
     throw new Error("Method not implemented.");
   }
 
+  canBeMoved(): boolean {
+    throw new Error('Method not implemented.');
+  }
+
 }
