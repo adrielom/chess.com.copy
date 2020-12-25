@@ -20,6 +20,8 @@ export abstract class Pieces {
     else return true;
   }
 
+
+
   abstract setConstraints(): void;
 
   abstract moveTo(destination: Position): void;

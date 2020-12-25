@@ -42,10 +42,10 @@ export class SquareComponent implements OnInit, OnChanges {
     let rowEven = Number.parseInt(this.brokenValue[0]) % 2 === 0;
 
     if ((rowEven && !columnEven) || (columnEven && !rowEven)) {
-      return '#B58863';
+      return '#F0D9B5';
     }
     else {
-      return '#F0D9B5';
+      return '#B58863';
     }
   }
 

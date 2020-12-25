@@ -12,20 +12,57 @@ export class Pawn extends Pieces {
     this.imageURL = color === Color.white ? 'assets/images/PawnWhite.svg' : 'assets/images/PawnBlack.svg';
   }
 
+  canCapture(): void {
+    let captureLeft, captureRight;
+    //can capture on both sides
+    if (this.position.x > 1) {
+      captureLeft = this.position.x - 1;
+    }
+    if (this.position.x < 8) {
+      captureRight = this.position.x + 1;
+    }
+
+    let posCaptureLeft = new Position(captureLeft, this.color === Color.white ? this.position.y + 1 : this.position.y - 1);
+    let posCaptureRight = new Position(captureRight, this.color === Color.white ? this.position.y + 1 : this.position.y - 1);
+
+    let pieceLeft = ChessBoardComponent.instance.getPieceByPosition(posCaptureLeft)
+    let pieceRight = ChessBoardComponent.instance.getPieceByPosition(posCaptureRight)
+
+
+    if (pieceLeft === undefined && pieceRight === undefined) return
+    else {
+      if (pieceLeft !== undefined) this.availableSquares.push(posCaptureLeft)
+      if (pieceRight !== undefined) this.availableSquares.push(posCaptureRight)
+      return
+    }
+  }
+
   setConstraints() {
+    this.availableSquares = []
     if (this.firstMove) {
       let position1 = this.color === Color.white ? new Position(this.startingPosition.x, this.startingPosition.y + 1) : new Position(this.startingPosition.x, this.startingPosition.y - 1);
       let position2 = this.color === Color.white ? new Position(this.startingPosition.x, this.startingPosition.y + 2) : new Position(this.startingPosition.x, this.startingPosition.y - 2);
       this.availableSquares.push(position1)
       this.availableSquares.push(position2)
+      this.firstMove = false;
+    } else {
+      let position1 = this.color === Color.white ? new Position(this.position.x, this.position.y + 1) : new Position(this.position.x, this.position.y - 1);
+      if (this.isWithinBounds(position1))
+        this.availableSquares.push(position1)
     }
   }
 
   moveTo(destination: Position): void {
-    this.availableSquares.forEach(s => console.log(s.x + ' ' + s.y))
+    this.canCapture();
     let square = this.availableSquares.find(p => p.x == destination.x && p.y == destination.y);
     if (square === undefined) throw new Error('Illegal move')
+    let pieceSquareDest = ChessBoardComponent.instance.getPieceByPosition(square);
+    if (pieceSquareDest !== undefined && pieceSquareDest?.color === this.color) throw new Error(`square of ${square.x} ${square.y} is occupied`)
+    else {
+      ChessBoardComponent.instance.capture(pieceSquareDest);
+    }
     this.position = square;
+    this.setConstraints()
   }
 
 }

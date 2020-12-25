@@ -11,7 +11,6 @@ export class Queen extends Pieces {
     super(name, startingPosition, color)
 
     this.imageURL = color === Color.white ? 'assets/images/QueenWhite.svg' : 'assets/images/QueenBlack.svg';
-
   }
 
 

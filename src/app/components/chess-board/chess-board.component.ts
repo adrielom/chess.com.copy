@@ -10,10 +10,13 @@ import { Command } from '../../models/Command'
 export class ChessBoardComponent implements OnInit {
 
   constructor() {
-
+    if (ChessBoardComponent.instance === undefined)
+      ChessBoardComponent.instance = this;
   }
 
-  public static pieces: Pieces[] = [];
+  public static instance: ChessBoardComponent;
+
+  public pieces: Pieces[] = [];
 
   ngOnInit(): void {
     this.populateChessBoard();
@@ -26,27 +29,30 @@ export class ChessBoardComponent implements OnInit {
 
   simulate() {
     this.newMove(new Command(Color.white, new Position(5, 2), new Position(5, 4)));
-    this.newMove(new Command(Color.black, new Position(3, 7), new Position(3, 5)));
-
+    this.newMove(new Command(Color.black, new Position(4, 7), new Position(4, 5)));
   }
 
   newMove(command: Command): void {
     command.executeCommand(this.getPieceByPosition(command.from));
   }
 
+  capture(piece: Pieces) {
+    this.pieces = this.pieces.filter(i => {
+      return i !== piece
+    })
+  }
 
-  getPieceByPosition(position: Position): Pieces {
-    let piece = ChessBoardComponent.pieces.find(p => {
+  public getPieceByPosition(position: Position): Pieces {
+    let piece = this.pieces.find(p => {
       if (p.position.x == position.x && p.position.y == position.y) {
-        console.log(p)
         return p;
       }
     })
     return piece;
   }
-  getPieceByXY(x: number, y: number): Pieces {
+  public getPieceByXY(x: number, y: number): Pieces {
     let position = new Position(x, y);
-    let piece = ChessBoardComponent.pieces.find(p => {
+    let piece = this.pieces.find(p => {
       if (p.position?.x == position?.x && p.position?.y == position?.y) {
         return p;
       }
@@ -73,26 +79,26 @@ export class ChessBoardComponent implements OnInit {
     let knightBlackB8 = new Knight("Knight", new Position(7, 8), Color.black);
 
     for (let i = 1; i <= 8; i++) {
-      ChessBoardComponent.pieces.push(new Pawn("Pawn", new Position(i, 2), Color.white));
-      ChessBoardComponent.pieces.push(new Pawn("Pawn", new Position(i, 7), Color.black));
+      this.pieces.push(new Pawn("Pawn", new Position(i, 2), Color.white));
+      this.pieces.push(new Pawn("Pawn", new Position(i, 7), Color.black));
     }
 
-    ChessBoardComponent.pieces.push(kingBlack);
-    ChessBoardComponent.pieces.push(kingWhite);
-    ChessBoardComponent.pieces.push(queenBlack);
-    ChessBoardComponent.pieces.push(queenWhite);
-    ChessBoardComponent.pieces.push(rookWhiteA1)
-    ChessBoardComponent.pieces.push(rookWhiteH1)
-    ChessBoardComponent.pieces.push(rookBlackA8)
-    ChessBoardComponent.pieces.push(rookBlackH8)
-    ChessBoardComponent.pieces.push(bishopWhiteC1)
-    ChessBoardComponent.pieces.push(bishopWhiteF1)
-    ChessBoardComponent.pieces.push(bishopBlackC8)
-    ChessBoardComponent.pieces.push(bishopBlackF8)
-    ChessBoardComponent.pieces.push(knightWhiteB1)
-    ChessBoardComponent.pieces.push(knightWhiteG1)
-    ChessBoardComponent.pieces.push(knightBlackG8)
-    ChessBoardComponent.pieces.push(knightBlackB8)
+    this.pieces.push(kingBlack);
+    this.pieces.push(kingWhite);
+    this.pieces.push(queenBlack);
+    this.pieces.push(queenWhite);
+    this.pieces.push(rookWhiteA1)
+    this.pieces.push(rookWhiteH1)
+    this.pieces.push(rookBlackA8)
+    this.pieces.push(rookBlackH8)
+    this.pieces.push(bishopWhiteC1)
+    this.pieces.push(bishopWhiteF1)
+    this.pieces.push(bishopBlackC8)
+    this.pieces.push(bishopBlackF8)
+    this.pieces.push(knightWhiteB1)
+    this.pieces.push(knightWhiteG1)
+    this.pieces.push(knightBlackG8)
+    this.pieces.push(knightBlackB8)
   }
 
 }
