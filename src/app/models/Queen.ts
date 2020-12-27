@@ -1,12 +1,17 @@
 import { Position, Pieces, Color } from '../models/Pieces'
 
 export class Queen extends Pieces {
+
   availableSquares: Position[];
+  imageURL: string;
+
   setConstraints(): void {
     throw new Error('Method not implemented.');
   }
-  imageURL: string;
 
+  canCapture() {
+    throw new Error('Method not implemented.');
+  }
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
 

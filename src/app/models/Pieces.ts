@@ -14,9 +14,13 @@ export abstract class Pieces {
 
   abstract imageURL: string;
   abstract availableSquares: Position[]
+  public static id = 0;
+  public selfId: number;
 
   constructor(public name: string, public startingPosition: Position, public color: Color) {
     this.position = startingPosition;
+    this.selfId = Pieces.id;
+    Pieces.id++;
   }
 
   isWithinBounds(destination: Position): boolean {
@@ -28,6 +32,8 @@ export abstract class Pieces {
   get Piece(): Pieces {
     return this;
   }
+
+  abstract canCapture(): any;
 
   abstract canBeMoved(): boolean;
 

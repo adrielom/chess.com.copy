@@ -22,7 +22,7 @@ export class Pawn extends Pieces {
     else return false
   }
 
-  canCapture(): void {
+  canCapture(): boolean {
     let captureLeft, captureRight;
     //can capture on both sides
     if (this.position.x > 1) {
@@ -39,11 +39,13 @@ export class Pawn extends Pieces {
     let pieceRight = ChessBoardComponent.instance.getPieceByPosition(posCaptureRight)
 
 
-    if (pieceLeft === undefined && pieceRight === undefined) return
+    if (pieceLeft === undefined && pieceRight === undefined) {
+      return false
+    }
     else {
       if (pieceLeft !== undefined) this.availableSquares.push(posCaptureLeft)
       if (pieceRight !== undefined) this.availableSquares.push(posCaptureRight)
-      return
+      return true
     }
   }
 
@@ -62,14 +64,20 @@ export class Pawn extends Pieces {
     }
   }
 
-  moveTo(destination: Position): void {
+  async moveTo(destination: Position): Promise<void> {
     this.canCapture();
     let square = this.availableSquares.find(p => p.x == destination.x && p.y == destination.y);
     if (square === undefined) throw new Error('Illegal move')
     let pieceSquareDest = ChessBoardComponent.instance.getPieceByPosition(square);
     if (pieceSquareDest !== undefined && pieceSquareDest?.color === this.color) throw new Error(`square of ${square.x} ${square.y} is occupied`)
-    else {
-      ChessBoardComponent.instance.capture(pieceSquareDest);
+    else if (pieceSquareDest !== undefined && pieceSquareDest?.color !== this.color) {
+      console.log(pieceSquareDest)
+      this.availableSquares.forEach(p => {
+        console.log(p)
+      })
+      ChessBoardComponent.instance.capture(pieceSquareDest.selfId);
+      console.log('Set position is ' + square.x + ' ' + square.y + ' and the piece is ' + this.Piece.color + ' id=' + this.selfId)
+
     }
     this.position = square;
     this.setConstraints()

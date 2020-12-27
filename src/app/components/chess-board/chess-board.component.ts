@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input, } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, ChangeDetectorRef } from '@angular/core';
 import { Position, Pieces, Color } from '../../models/Pieces';
 import { Bishop, King, Knight, Pawn, Queen, Rook } from '../../models/PiecesList'
 import { Command } from '../../models/Command'
@@ -10,7 +10,7 @@ import { Player } from '../../models/Player'
 })
 export class ChessBoardComponent implements OnInit {
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     if (ChessBoardComponent.instance === undefined)
       ChessBoardComponent.instance = this;
 
@@ -54,6 +54,11 @@ export class ChessBoardComponent implements OnInit {
     console.log(`the player after is ${this.activePlayer.name}`)
   }
 
+  GetInactivePlayer(): Player {
+    if (this.activePlayer === this.player1) return this.player2
+    else return this.player1
+  }
+
   populatePlayersPieces(): void {
     this.pieces.forEach(p => {
       if (p.color === Color.white) this.player1.listOfPieces.push(p);
@@ -70,14 +75,21 @@ export class ChessBoardComponent implements OnInit {
     this.newMove(new Command(Color.black, new Position(4, 7), new Position(4, 5)));
   }
 
-  newMove(command: Command): void {
+  async newMove(command: Command): Promise<void> {
     command.executeCommand(this.getPieceByPosition(command.from));
   }
 
-  capture(piece: Pieces) {
+  capture(pieceId: number): void {
+    console.log('capture ' + pieceId)
+    // this.GetInactivePlayer().listOfPieces = this.GetInactivePlayer().listOfPieces.filter(i => {
+    //   return i !== piece
+    // })
     this.pieces = this.pieces.filter(i => {
-      return i !== piece
+      return i.selfId !== pieceId
     })
+
+    this.cdr.detectChanges();
+
   }
 
   public getPieceByPosition(position: Position): Pieces {
@@ -88,6 +100,7 @@ export class ChessBoardComponent implements OnInit {
     })
     return piece;
   }
+
   public getPieceByXY(x: number, y: number): Pieces {
     let position = new Position(x, y);
     let piece = this.pieces.find(p => {
@@ -96,6 +109,13 @@ export class ChessBoardComponent implements OnInit {
       }
     })
     return piece;
+  }
+
+  public getPieceById(id: number): Pieces {
+    let piece = this.pieces.find(p => {
+      if (p.selfId === id) return p;
+    })
+    return piece
   }
 
   populateChessBoard(): void {

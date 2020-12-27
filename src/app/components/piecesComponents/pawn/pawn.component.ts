@@ -27,7 +27,7 @@ export class PawnComponent implements OnInit {
   }
 
   mouseDown(event: MouseEvent) {
-    if (!this.piece.canBeMoved()) {
+    if (!this.piece.canBeMoved() && !this.piece.canCapture()) {
       console.log('cannot be moved')
       return;
     }

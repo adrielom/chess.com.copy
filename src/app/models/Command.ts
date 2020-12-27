@@ -7,7 +7,7 @@ export class Command {
 
   executeCommand(piece: Pieces): void {
     piece.moveTo(this.to)
-    console.log(piece)
+    console.log('hy')
     // MovesList.instance.addMove(this.to);
   }
 
