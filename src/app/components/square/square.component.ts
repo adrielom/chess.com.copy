@@ -8,7 +8,7 @@ import { BishopComponent } from '../piecesComponents/bishop-component/bishop-com
   templateUrl: './square.component.html',
   styleUrls: ['./square.component.scss']
 })
-export class SquareComponent implements OnInit, OnChanges {
+export class SquareComponent implements OnInit {
 
   @Input()
   value: string;
@@ -20,11 +20,9 @@ export class SquareComponent implements OnInit, OnChanges {
   myStyle: object;
   position: Position;
 
+  lastPlayed = "#DAC332"
+
   constructor() {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-
   }
 
   ngOnInit(): void {
@@ -40,6 +38,14 @@ export class SquareComponent implements OnInit, OnChanges {
     let active = ChessBoardComponent.instance.activePlayer;
     if (active.firstPosition.isSet())
       active.setPosition(this.position)
+  }
+
+  setLastPlayed(positions: Position[]): void {
+    for (let index = 0; index < positions.length; index++) {
+      if (Number.parseInt(this.brokenValue[0]) === positions[index].x && Number.parseInt(this.brokenValue[1]) === positions[index].y) {
+        this.myStyle['background'] = this.lastPlayed;
+      }
+    }
   }
 
   setColor(): string {

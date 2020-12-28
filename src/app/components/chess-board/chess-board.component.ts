@@ -25,12 +25,17 @@ export class ChessBoardComponent implements OnInit {
   public player1: Player
   public player2: Player
   public activePlayer: Player;
+  lastPlayed: Position[] = []
 
   public get SelectedPiece() {
     return this.selectedPiece;
   }
 
   public set SelectedPiece(piece: Pieces) {
+    if (this.selectedPiece?.color === piece?.color) {
+      this.player1.cleanUp()
+      this.player2.cleanUp()
+    }
     console.log(piece)
     this.selectedPiece = piece;
   }
