@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Pieces, Position } from 'src/app/models/Pieces';
 import { ChessBoardComponent } from '../chess-board/chess-board.component';
 import { BishopComponent } from '../piecesComponents/bishop-component/bishop-component.component';
@@ -19,8 +19,7 @@ export class SquareComponent implements OnInit {
   brokenValue: string[];
   myStyle: object;
   position: Position;
-
-  lastPlayed = "#DAC332"
+  isLastPlayed = false;
 
   constructor() {
   }
@@ -34,18 +33,20 @@ export class SquareComponent implements OnInit {
     this.position = new Position(Number.parseInt(this.brokenValue[0]), Number.parseInt(this.brokenValue[1]));
   }
 
-  setDestination(): void {
-    let active = ChessBoardComponent.instance.activePlayer;
-    if (active.firstPosition.isSet())
-      active.setPosition(this.position)
+  resetColor(): void {
+    this.isLastPlayed = false
   }
 
-  setLastPlayed(positions: Position[]): void {
-    for (let index = 0; index < positions.length; index++) {
-      if (Number.parseInt(this.brokenValue[0]) === positions[index].x && Number.parseInt(this.brokenValue[1]) === positions[index].y) {
-        this.myStyle['background'] = this.lastPlayed;
-      }
+  setDestination(): void {
+    this.resetColor();
+    let active = ChessBoardComponent.instance.activePlayer;
+    if (active.firstPosition.isSet()) {
+      active.setPosition(this.position)
     }
+  }
+
+  setLastPlayed(): void {
+    this.isLastPlayed = true
   }
 
   setColor(): string {

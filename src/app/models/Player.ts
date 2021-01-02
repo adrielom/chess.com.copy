@@ -27,12 +27,14 @@ export class Player {
   async makeMove(): Promise<void> {
     console.log('making move')
     let command = new Command(this.color, this.firstPosition, this.lastPosition);
+    this.listOfMoves.push(command)
     await ChessBoardComponent.instance.newMove(command);
     this.endTurn()
   }
 
   endTurn(): void {
     ChessBoardComponent.instance.SetActivePlayer()
+
     console.log('ending turn')
   }
 

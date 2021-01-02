@@ -1,3 +1,4 @@
+import { ChessBoardComponent } from '../components/chess-board/chess-board.component';
 import { MovesList } from './MovesList';
 import { Color, Position, Pieces } from './Pieces'
 
@@ -7,7 +8,7 @@ export class Command {
 
   executeCommand(piece: Pieces): void {
     piece.moveTo(this.to)
-    console.log('hy')
+
     // MovesList.instance.addMove(this.to);
   }
 

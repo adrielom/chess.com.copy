@@ -11,3 +11,12 @@ div {
   justify-content: center;
   align-items: center;
 }
+
+.overlay::before {
+  content: '';
+  background-color: #dac43294 !important;
+  position: absolute;
+  width: $side;
+  height: $side;
+  z-index: 2;
+}

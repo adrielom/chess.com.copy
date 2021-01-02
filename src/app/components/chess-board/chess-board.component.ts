@@ -1,8 +1,9 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Position, Pieces, Color } from '../../models/Pieces';
 import { Bishop, King, Knight, Pawn, Queen, Rook } from '../../models/PiecesList'
 import { Command } from '../../models/Command'
 import { Player } from '../../models/Player'
+import { SquareComponent } from '../square/square.component';
 @Component({
   selector: 'app-chess-board',
   templateUrl: './chess-board.component.html',
@@ -10,7 +11,7 @@ import { Player } from '../../models/Player'
 })
 export class ChessBoardComponent implements OnInit {
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor() {
     if (ChessBoardComponent.instance === undefined)
       ChessBoardComponent.instance = this;
 
@@ -19,13 +20,13 @@ export class ChessBoardComponent implements OnInit {
     this.activePlayer = this.player1
   }
 
+  @ViewChildren('square') squares: QueryList<SquareComponent>
   public static instance: ChessBoardComponent;
   selectedPiece: Pieces;
   public pieces: Pieces[] = [];
   public player1: Player
   public player2: Player
   public activePlayer: Player;
-  lastPlayed: Position[] = []
 
   public get SelectedPiece() {
     return this.selectedPiece;
@@ -64,6 +65,11 @@ export class ChessBoardComponent implements OnInit {
     else return this.player1
   }
 
+  getSquareByValue(value: string) {
+    let square = this.squares.find(s => s.value === value)
+    return square
+  }
+
   populatePlayersPieces(): void {
     this.pieces.forEach(p => {
       if (p.color === Color.white) this.player1.listOfPieces.push(p);
@@ -81,20 +87,34 @@ export class ChessBoardComponent implements OnInit {
   }
 
   async newMove(command: Command): Promise<void> {
+    let inactivePlayer = this.GetInactivePlayer()
+    let previousMove: Position[]
+
+    if (inactivePlayer.listOfMoves.length > 0) {
+      previousMove = [
+        inactivePlayer.listOfMoves[inactivePlayer.listOfMoves.length - 1].from,
+        inactivePlayer.listOfMoves[inactivePlayer.listOfMoves.length - 1].to
+      ]
+      console.table(previousMove)
+
+      for (const move of previousMove) {
+        let square = this.getSquareByValue(`${move.x},${move.y}`)
+        square.resetColor()
+      }
+    }
+
     command.executeCommand(this.getPieceByPosition(command.from));
+    let square1 = this.getSquareByValue(`${this.activePlayer.firstPosition.x},${this.activePlayer.firstPosition.y}`)
+    let square2 = this.getSquareByValue(`${this.activePlayer.lastPosition.x},${this.activePlayer.lastPosition.y}`)
+    square1.setLastPlayed()
+    square2.setLastPlayed()
   }
 
   capture(pieceId: number): void {
     console.log('capture ' + pieceId)
-    // this.GetInactivePlayer().listOfPieces = this.GetInactivePlayer().listOfPieces.filter(i => {
-    //   return i !== piece
-    // })
     this.pieces = this.pieces.filter(i => {
       return i.selfId !== pieceId
     })
-
-    this.cdr.detectChanges();
-
   }
 
   public getPieceByPosition(position: Position): Pieces {
