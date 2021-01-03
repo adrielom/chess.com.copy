@@ -1,5 +1,7 @@
 <div *ngIf="piece?.name; else nothing">
-  <div [ngStyle]="myStyle" [ngClass]="{'overlay': isLastPlayed}" [ngSwitch]="piece.name">
+  <div [ngStyle]="myStyle"
+    [ngClass]="{'lastPlayed': isLastPlayed, 'selectedSquare': isSelected, 'availableSquare': isPopulated && isSelected}"
+    [ngSwitch]="piece.name">
     {{value}}
     <app-bishop-component [piece]="piece" [value]="value" *ngSwitchCase="'Bishop'"></app-bishop-component>
     <app-king-component [piece]="piece" [value]="value" *ngSwitchCase="'King'"></app-king-component>
@@ -10,7 +12,9 @@
   </div>
 </div>
 <ng-template #nothing>
-  <div [ngStyle]="myStyle" [ngClass]="{'overlay': isLastPlayed}" (click)="setDestination()">
+  <div [ngStyle]="myStyle"
+    [ngClass]="{'lastPlayed': isLastPlayed, 'selectedSquare': isSelected, 'availableSquare': isPopulated && isSelected}"
+    (click)="setDestination()">
     {{value}}
   </div>
 </ng-template>

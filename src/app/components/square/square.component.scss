@@ -12,11 +12,30 @@ div {
   align-items: center;
 }
 
-.overlay::before {
+.lastPlayed::before {
   content: '';
   background-color: #dac43294 !important;
   position: absolute;
   width: $side;
   height: $side;
+  z-index: 2;
+}
+
+.selectedSquare::before {
+  content: '';
+  background-color: #dac43294 !important;
+  position: absolute;
+  width: $side;
+  height: $side;
+  z-index: 2;
+}
+
+.availableSquare::after {
+  content: '';
+  background-color: #c4c4c494 !important;
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
   z-index: 2;
 }

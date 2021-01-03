@@ -20,6 +20,7 @@ export class SquareComponent implements OnInit {
   myStyle: object;
   position: Position;
   isLastPlayed = false;
+  isSelected = false
 
   constructor() {
   }
@@ -31,6 +32,10 @@ export class SquareComponent implements OnInit {
       'border-radius': this.roundCorners()
     }
     this.position = new Position(Number.parseInt(this.brokenValue[0]), Number.parseInt(this.brokenValue[1]));
+  }
+
+  resetSelected(): void {
+    this.IsSelected = false;
   }
 
   resetColor(): void {
@@ -45,8 +50,36 @@ export class SquareComponent implements OnInit {
     }
   }
 
+  set IsSelected(state: boolean) {
+    this.isSelected = state
+  }
+
+  get IsSelected() {
+    return this.isSelected
+  }
+
+  set IsPopulated(bool: boolean) {
+    this.isPopulated = bool
+  }
+
+  get IsPopulated(): boolean {
+    let piece = ChessBoardComponent.instance.pieces.find(p => p.position === this.position)
+    if (piece === undefined) {
+      console.log('the position is not populated')
+      this.isPopulated = false
+      return false
+    }
+    console.log('the position is populated')
+    this.isPopulated = true;
+    return true
+  }
+
   setLastPlayed(): void {
     this.isLastPlayed = true
+  }
+
+  setColorTest(hex: string): void {
+    this.myStyle['background'] = hex;
   }
 
   setColor(): string {

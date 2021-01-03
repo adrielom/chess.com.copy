@@ -1,6 +1,6 @@
 import { ChessBoardComponent } from '../components/chess-board/chess-board.component';
 import { Position, Pieces, Color } from '../models/Pieces'
-
+import { Delay } from './Utils'
 export class Pawn extends Pieces {
   imageURL: string;
   firstMove: boolean = true;
@@ -10,16 +10,6 @@ export class Pawn extends Pieces {
     super(name, startingPosition, color)
     this.setConstraints();
     this.imageURL = color === Color.white ? 'assets/images/PawnWhite.svg' : 'assets/images/PawnBlack.svg';
-  }
-
-  canBeMoved(): boolean {
-    if (ChessBoardComponent.instance.activePlayer.color === Color.white) {
-      if (ChessBoardComponent.instance.player1.listOfPieces.find(p => p.Piece === this)) return true
-    }
-    else if (ChessBoardComponent.instance.activePlayer.color === Color.black) {
-      if (ChessBoardComponent.instance.player2.listOfPieces.find(p => p.Piece === this)) return true
-    }
-    else return false
   }
 
   canCapture(): boolean {
@@ -71,16 +61,15 @@ export class Pawn extends Pieces {
     let pieceSquareDest = ChessBoardComponent.instance.getPieceByPosition(square);
     if (pieceSquareDest !== undefined && pieceSquareDest?.color === this.color) throw new Error(`square of ${square.x} ${square.y} is occupied`)
     else if (pieceSquareDest !== undefined && pieceSquareDest?.color !== this.color) {
-      console.log(pieceSquareDest)
-      this.availableSquares.forEach(p => {
-        console.log(p)
-      })
       ChessBoardComponent.instance.capture(pieceSquareDest.selfId);
-      console.log('Set position is ' + square.x + ' ' + square.y + ' and the piece is ' + this.Piece.color + ' id=' + this.selfId)
+      if (ChessBoardComponent.instance.pieces.find(p => p.selfId === pieceSquareDest.selfId)) throw new Error('erro não deveria achar a instancia')
 
+      Delay(() => {
+        this.actionMove(square)
+      }, 20)
+      return
     }
-    this.position = square;
-    this.setConstraints()
+    this.actionMove(square)
   }
 
 }

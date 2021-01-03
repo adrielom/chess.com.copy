@@ -27,6 +27,7 @@ export class PawnComponent implements OnInit {
   }
 
   mouseDown(event: MouseEvent) {
+    this.selectSquare()
     if (!this.piece.canBeMoved() && !this.piece.canCapture()) {
       console.log('cannot be moved')
       return;
@@ -34,6 +35,13 @@ export class PawnComponent implements OnInit {
     let attributes = this.value.split(',');
     ChessBoardComponent.instance.SelectedPiece = this.piece;
     ChessBoardComponent.instance.activePlayer.setPosition(new Position(Number.parseInt(attributes[0]), Number.parseInt(attributes[1])));
+  }
+
+  selectSquare(): void {
+    console.log('yo')
+    let square = ChessBoardComponent.instance.getSquareByValue(this.value)
+    ChessBoardComponent.instance.squares.forEach(s => s.resetSelected())
+    square.IsSelected = true
   }
 
 }

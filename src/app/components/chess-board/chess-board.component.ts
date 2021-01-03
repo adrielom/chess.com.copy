@@ -37,7 +37,6 @@ export class ChessBoardComponent implements OnInit {
       this.player1.cleanUp()
       this.player2.cleanUp()
     }
-    console.log(piece)
     this.selectedPiece = piece;
   }
 
@@ -50,14 +49,12 @@ export class ChessBoardComponent implements OnInit {
   SetActivePlayer(): void {
     this.player1.cleanUp();
     this.player2.cleanUp();
-    console.log(`the player before is ${this.activePlayer.name}`)
     if (this.activePlayer === this.player1) {
       this.activePlayer = this.player2;
     }
     else if (this.activePlayer === this.player2) {
       this.activePlayer = this.player1;
     }
-    console.log(`the player after is ${this.activePlayer.name}`)
   }
 
   GetInactivePlayer(): Player {
@@ -95,12 +92,13 @@ export class ChessBoardComponent implements OnInit {
         inactivePlayer.listOfMoves[inactivePlayer.listOfMoves.length - 1].from,
         inactivePlayer.listOfMoves[inactivePlayer.listOfMoves.length - 1].to
       ]
-      console.table(previousMove)
 
       for (const move of previousMove) {
         let square = this.getSquareByValue(`${move.x},${move.y}`)
+        if (square.isSelected) square.isSelected = false;
         square.resetColor()
       }
+
     }
 
     command.executeCommand(this.getPieceByPosition(command.from));
@@ -108,6 +106,7 @@ export class ChessBoardComponent implements OnInit {
     let square2 = this.getSquareByValue(`${this.activePlayer.lastPosition.x},${this.activePlayer.lastPosition.y}`)
     square1.setLastPlayed()
     square2.setLastPlayed()
+    console.log(square2.isLastPlayed)
   }
 
   capture(pieceId: number): void {
