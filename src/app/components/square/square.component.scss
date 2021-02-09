@@ -1,6 +1,4 @@
-$side: 10.2vh;
-$white: white;
-$black: black;
+@import '../../../styles.scss';
 
 div {
   position: relative;
@@ -38,4 +36,22 @@ div {
   height: 50%;
   border-radius: 50%;
   z-index: 2;
+}
+
+p {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+.coordinateLetter {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.coordinateNumber {
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }

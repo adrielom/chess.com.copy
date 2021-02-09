@@ -15,8 +15,8 @@ export class ChessBoardComponent implements OnInit {
     if (ChessBoardComponent.instance === undefined)
       ChessBoardComponent.instance = this;
 
-    this.player1 = new Player('Walter White', Color.white)
-    this.player2 = new Player('Jack Black', Color.black)
+    this.player1 = new Player('Walter White', Color.white, 'https://github.com/adrielom.png')
+    this.player2 = new Player('Jack Black', Color.black, 'https://github.com/acmagal.png')
     this.activePlayer = this.player1
   }
 
@@ -52,7 +52,7 @@ export class ChessBoardComponent implements OnInit {
     if (this.activePlayer === this.player1) {
       this.activePlayer = this.player2;
     }
-    else if (this.activePlayer === this.player2) {
+    else {
       this.activePlayer = this.player1;
     }
   }
@@ -74,15 +74,6 @@ export class ChessBoardComponent implements OnInit {
     })
   }
 
-  gameCycle(): void {
-    this.newMove(new Command(Color.white, new Position(5, 2), new Position(5, 4)));
-  }
-
-  simulate() {
-    this.newMove(new Command(Color.white, new Position(5, 2), new Position(5, 4)));
-    this.newMove(new Command(Color.black, new Position(4, 7), new Position(4, 5)));
-  }
-
   async newMove(command: Command): Promise<void> {
     let inactivePlayer = this.GetInactivePlayer()
     let previousMove: Position[]
@@ -94,9 +85,10 @@ export class ChessBoardComponent implements OnInit {
       ]
 
       for (const move of previousMove) {
+        console.log('hereeeee')
         let square = this.getSquareByValue(`${move.x},${move.y}`)
-        if (square.isSelected) square.isSelected = false;
-        square.resetColor()
+        if (square.isSelected) square.IsSelected = false;
+
       }
 
     }

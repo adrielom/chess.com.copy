@@ -26,11 +26,13 @@ export class KnightComponent implements OnInit {
   }
 
   mouseDown(event: MouseEvent) {
+    if (!this.piece.canBeSelected()) return;
     this.selectSquare()
-    // if (!this.piece.canBeMoved() && !this.piece.canCapture()) {
-    //   console.log('cannot be moved')
-    //   return;
-    // }
+
+    if (!this.piece.canBeMoved()) {
+      console.log('cannot be moved')
+      return;
+    }
     console.log('knight')
     let attributes = this.value.split(',');
     ChessBoardComponent.instance.SelectedPiece = this.piece;

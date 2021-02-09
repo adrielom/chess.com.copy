@@ -12,7 +12,7 @@ export class King extends Pieces {
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
 
-    this.imageURL = color === Color.white ? 'assets/images/KingWhite.svg' : 'assets/images/KingBlack.svg';
+    this.imageURL = color === Color.white ? 'assets/images/wk.png' : 'assets/images/bk.png';
 
   }
   canCapture() {

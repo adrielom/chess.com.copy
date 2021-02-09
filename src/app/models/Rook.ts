@@ -12,7 +12,7 @@ export class Rook extends Pieces {
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
 
-    this.imageURL = color === Color.white ? 'assets/images/RookWhite.svg' : 'assets/images/RookBlack.svg';
+    this.imageURL = color === Color.white ? 'assets/images/wr.png' : 'assets/images/br.png';
 
   }
 

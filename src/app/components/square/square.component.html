@@ -2,7 +2,11 @@
   <div [ngStyle]="myStyle"
     [ngClass]="{'lastPlayed': isLastPlayed, 'selectedSquare': isSelected, 'availableSquare': isPopulated && isSelected}"
     [ngSwitch]="piece.name">
-    {{value}}
+    <p [ngStyle]="{color: textCoordinateX % 2 !== 0 ? colorWhite : colorBlack}" class="coordinateNumber">
+      {{textCoordinateX}}</p>
+    <p [ngStyle]="{color: textCoordinateY.charCodeAt(0) % 2 !== 0 ? colorWhite : colorBlack}" class="coordinateLetter">
+      {{textCoordinateY}}</p>
+
     <app-bishop-component [piece]="piece" [value]="value" *ngSwitchCase="'Bishop'"></app-bishop-component>
     <app-king-component [piece]="piece" [value]="value" *ngSwitchCase="'King'"></app-king-component>
     <app-rook [piece]="piece" [value]="value" *ngSwitchCase="'Rook'"></app-rook>
@@ -15,6 +19,9 @@
   <div [ngStyle]="myStyle"
     [ngClass]="{'lastPlayed': isLastPlayed, 'selectedSquare': isSelected, 'availableSquare': isPopulated && isSelected}"
     (click)="setDestination()">
-    {{value}}
+    <p [ngStyle]="{color: textCoordinateX % 2 !== 0 ? colorWhite : colorBlack}" class="coordinateNumber">
+      {{textCoordinateX}}</p>
+    <p [ngStyle]="{color: textCoordinateX % 2 !== 0 ? colorWhite : colorBlack}" class="coordinateLetter">
+      {{textCoordinateY}}</p>
   </div>
 </ng-template>

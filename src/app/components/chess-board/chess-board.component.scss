@@ -1,10 +1,16 @@
-.column {
+@import '../../../styles.scss';
+
+.row {
   display: flex;
   margin: auto;
+  width: auto;
 }
 
 #chessBoard {
-  position: relative;
-  margin-top: 4%;
   margin-left: 15%;
+  transform: scale(.95);
+}
+
+.board {
+  width: $side * 8;
 }

@@ -37,8 +37,6 @@ export abstract class Pieces {
     return this;
   }
 
-  abstract canCapture(): any;
-
   abstract setConstraints(): void;
 
   abstract moveTo(destination: Position): void;
@@ -63,6 +61,14 @@ export abstract class Pieces {
     this.correspondentSquare = ChessBoardComponent.instance.getSquareByValue(`${this.position.x},${this.position.y}`)
     this.correspondentSquare.IsPopulated = true;
     console.log(this.correspondentSquare)
+  }
+
+
+  canBeSelected() {
+    let chessboard = ChessBoardComponent.instance;
+    if (this.Piece.color === chessboard.activePlayer.color && chessboard.activePlayer.lastPosition !== new Position(-1, -1))
+      return true;
+    else return false;
   }
 
 

@@ -1,4 +1,16 @@
+$primaryColor: #312e2b;
+$side: 10.2vh;
+$white: white;
+$black: black;
+$red: red;
+
 /* You can add global styles to this file, and also import other style files */
 body {
   margin: 0;
+  height: 100vh;
+  background-color: $primaryColor;
+}
+
+.darkBackground {
+  background: $primaryColor;
 }

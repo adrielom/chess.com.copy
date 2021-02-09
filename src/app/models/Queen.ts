@@ -15,7 +15,7 @@ export class Queen extends Pieces {
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
 
-    this.imageURL = color === Color.white ? 'assets/images/QueenWhite.svg' : 'assets/images/QueenBlack.svg';
+    this.imageURL = color === Color.white ? 'assets/images/wq.png' : 'assets/images/bq.png';
   }
 
   moveTo(destination: Position): void {

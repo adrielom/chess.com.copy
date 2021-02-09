@@ -10,7 +10,8 @@ import { BishopComponent } from './components/piecesComponents/bishop-component/
 import { RookComponent } from './components/piecesComponents/rook/rook.component';
 import { KnightComponent } from './components/piecesComponents/knight/knight.component';
 import { QueenComponent } from './components/piecesComponents/queen/queen.component';
-import { PawnComponent } from './components/piecesComponents/pawn/pawn.component'
+import { PawnComponent } from './components/piecesComponents/pawn/pawn.component';
+import { PlayersThumbComponent } from './components/players-thumb/players-thumb.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PawnComponent } from './components/piecesComponents/pawn/pawn.component
     RookComponent,
     KnightComponent,
     QueenComponent,
-    PawnComponent
+    PawnComponent,
+    PlayersThumbComponent
   ],
   imports: [
     BrowserModule

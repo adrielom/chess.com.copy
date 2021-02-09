@@ -9,7 +9,7 @@ export class Pawn extends Pieces {
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
     this.setConstraints();
-    this.imageURL = color === Color.white ? 'assets/images/PawnWhite.svg' : 'assets/images/PawnBlack.svg';
+    this.imageURL = color === Color.white ? 'assets/images/wp.png' : 'assets/images/bp.png';
   }
 
   canCapture(): boolean {

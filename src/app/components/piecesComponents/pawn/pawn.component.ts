@@ -27,8 +27,9 @@ export class PawnComponent implements OnInit {
   }
 
   mouseDown(event: MouseEvent) {
+    if (!this.piece.canBeSelected()) return;
     this.selectSquare()
-    if (!this.piece.canBeMoved() && !this.piece.canCapture()) {
+    if (!this.piece.canBeMoved() && !this.piece.canCapture() && ChessBoardComponent.instance.activePlayer.firstPosition === undefined) {
       console.log('cannot be moved')
       return;
     }

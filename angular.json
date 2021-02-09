@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "chessWebsite3"
+    }
+  },
+  "defaultProject": "chessWebsite3",
+  "cli": {
+    "analytics": "a239bb0a-d68f-4533-be63-386516913948"
+  }
 }

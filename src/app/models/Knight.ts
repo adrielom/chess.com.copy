@@ -47,16 +47,27 @@ export class Knight extends Pieces {
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
 
-    this.imageURL = color === Color.white ? 'assets/images/KnightWhite.svg' : 'assets/images/KnightBlack.svg';
+    this.imageURL = color === Color.white ? 'assets/images/wn.png' : 'assets/images/bn.png';
     this.position = this.startingPosition
   }
 
-  canCapture() {
-    throw new Error('Method not implemented.');
+
+  canCapture(destination: Position) {
+    this.availableSquares = []
+    let piece = undefined
+    for (const i of this.range) {
+      if (i.x === destination.x && i.y === destination.y) {
+        piece = ChessBoardComponent.instance.getPieceByPosition(destination)
+      }
+    }
+    if (piece?.color !== ChessBoardComponent.instance.activePlayer.color) {
+      this.availableSquares.push(destination)
+    }
   }
 
   moveTo(destination: Position): void {
     this.setConstraints()
+    this.canCapture(destination)
     let destinationIsAvailable: Position
     console.log(this.availableSquares)
     this.availableSquares.forEach(p => {

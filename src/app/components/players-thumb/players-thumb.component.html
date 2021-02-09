@@ -1,0 +1,9 @@
+<div [ngStyle]="{'margin-bottom': top ? '10px' : '', 'margin-top': !top ? '10px' : ''}">
+  <img *ngIf="player.avatar !== ''" [src]="player.avatar" alt="" class="thumbnail">
+  <i *ngIf="player.avatar === ''" class="fas fa-user-circle"></i>
+  <div class="playerInfo">
+    <h1><b>{{player.name}}</b> ({{player.rating}})</h1>
+    <img src="https://www.countryflags.io/{{player.country}}/shiny/64.png" alt="country flag" class="flag">
+    <div *ngIf="isPlayerActive()" class="activePlayer"></div>
+  </div>
+</div>

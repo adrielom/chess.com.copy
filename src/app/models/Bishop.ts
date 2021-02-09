@@ -8,7 +8,7 @@ export class Bishop extends Pieces {
   constructor(name: string, startingPosition: Position, color: Color) {
     super(name, startingPosition, color)
 
-    this.imageURL = color === Color.white ? 'assets/images/BishopWhite.svg' : 'assets/images/BishopBlack.svg';
+    this.imageURL = color === Color.white ? 'assets/images/wb.png' : 'assets/images/bb.png';
 
   }
   canCapture() {
