@@ -12,7 +12,7 @@ div {
 
 .lastPlayed::before {
   content: '';
-  background-color: #dac43294 !important;
+  background-color: #ffdd00 !important;
   position: absolute;
   width: $side;
   height: $side;
@@ -21,7 +21,7 @@ div {
 
 .selectedSquare::before {
   content: '';
-  background-color: #dac43294 !important;
+  background-color: #ffdd00 !important;
   position: absolute;
   width: $side;
   height: $side;

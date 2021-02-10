@@ -80,8 +80,8 @@ export class SquareComponent implements OnInit {
     return true
   }
 
-  setLastPlayed(): void {
-    this.isLastPlayed = true
+  set LastPlayed(bool: boolean) {
+    this.isLastPlayed = bool
   }
 
   setColorTest(hex: string): void {

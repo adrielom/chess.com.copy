@@ -22,6 +22,9 @@ export class Player {
     return this.avatar;
   }
 
+  addMoveToListOfMoves(command: Command) {
+    this.listOfMoves.push(command)
+  }
 
   setPosition(position: Position): void {
     console.log(`set position - current first is [${this.firstPosition.x} ${this.firstPosition.y}] / current second is [${this.lastPosition.x} ${this.lastPosition.y}]`)

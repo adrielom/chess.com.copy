@@ -78,26 +78,30 @@ export class ChessBoardComponent implements OnInit {
     let inactivePlayer = this.GetInactivePlayer()
     let previousMove: Position[]
 
+    console.log('inact ' + inactivePlayer.name)
     if (inactivePlayer.listOfMoves.length > 0) {
       previousMove = [
         inactivePlayer.listOfMoves[inactivePlayer.listOfMoves.length - 1].from,
         inactivePlayer.listOfMoves[inactivePlayer.listOfMoves.length - 1].to
       ]
 
+      //Cleans up the movement feedback
       for (const move of previousMove) {
-        console.log('hereeeee')
         let square = this.getSquareByValue(`${move.x},${move.y}`)
         if (square.isSelected) square.IsSelected = false;
 
+        square.LastPlayed = false
+        square.LastPlayed = false
       }
 
     }
 
     command.executeCommand(this.getPieceByPosition(command.from));
+    this.activePlayer.addMoveToListOfMoves(command);
     let square1 = this.getSquareByValue(`${this.activePlayer.firstPosition.x},${this.activePlayer.firstPosition.y}`)
     let square2 = this.getSquareByValue(`${this.activePlayer.lastPosition.x},${this.activePlayer.lastPosition.y}`)
-    square1.setLastPlayed()
-    square2.setLastPlayed()
+    square1.LastPlayed = true
+    square2.LastPlayed = true
     console.log(square2.isLastPlayed)
   }
 
